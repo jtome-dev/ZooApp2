@@ -25,17 +25,25 @@ class SubMenuActivity : AppCompatActivity() {
         tvDetailsTitle = findViewById(R.id.tvDetailsTitle)
         listViewDetails = findViewById(R.id.listViewDetails)
 
+        // Get strings passed via intent extras
         val selection = intent.getStringExtra(EXTRA_SELECTION) ?: return
         val subject = intent.getStringExtra(EXTRA_SUBJECT) ?: return
 
         when (subject) {
             "Animal" -> {
+                // Set the page title
                 tvDetailsTitle.text = "Please select an available $selection"
+
+                // Get animal data
                 val animalDetails = ZooRepository.getAnimals()
-                    .filter { it.type == selection }
-                    .map { it.name }
+                    .filter { it.type == selection } // filter by animal type
+                    .map { it.name }    // list names
+
+                // Set the list view
                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, animalDetails)
                 listViewDetails.adapter = adapter
+
+                // Set list view item on click listener
                 listViewDetails.setOnItemClickListener { _, _, position, _ ->
                     val selectedAnimalName = animalDetails[position]
                     val selectedAnimal = ZooRepository.getAnimals().find { it.name == selectedAnimalName }
@@ -47,12 +55,19 @@ class SubMenuActivity : AppCompatActivity() {
                 }
             }
             "Habitat" -> {
+                // Set the page title
                 tvDetailsTitle.text = "Please select an available $selection habitat"
+
+                // Get habitat data
                 val habitatDetails = ZooRepository.getHabitats()
-                    .filter { it.type == selection }
-                    .map { it.name }
+                    .filter { it.type == selection } // filter by habitat type
+                    .map { it.name } // list names
+
+                // Set the list view
                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, habitatDetails)
                 listViewDetails.adapter = adapter
+
+                // Set list view item on click listener
                 listViewDetails.setOnItemClickListener { _, _, position, _ ->
                     val selectedHabitatName = habitatDetails[position]
                     val selectedHabitat = ZooRepository.getHabitats().find { it.name == selectedHabitatName }
