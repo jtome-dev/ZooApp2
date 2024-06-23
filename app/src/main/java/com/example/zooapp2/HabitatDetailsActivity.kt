@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,10 +23,13 @@ class HabitatDetailsActivity : AppCompatActivity() {
     private lateinit var tvId: TextView
     private lateinit var etType: EditText
     private lateinit var etName: EditText
+    private lateinit var lineT: LinearLayout
     private lateinit var etTemp: EditText
     private lateinit var cbTFlag: CheckBox
+    private lateinit var lineF: LinearLayout
     private lateinit var etFood: EditText
     private lateinit var cbFFlag: CheckBox
+    private lateinit var lineC: LinearLayout
     private lateinit var etClean: EditText
     private lateinit var cbCFlag: CheckBox
     private lateinit var btnEditSubmit: Button
@@ -42,10 +46,16 @@ class HabitatDetailsActivity : AppCompatActivity() {
         tvId = findViewById(R.id.tvId)
         etType = findViewById(R.id.etType)
         etName = findViewById(R.id.etName)
+        // Temperature
+        lineT = findViewById(R.id.temperatureLine)
         etTemp = findViewById(R.id.etTemp)
         cbTFlag = findViewById(R.id.cbTFlag)
+        // Food Supply
+        lineF = findViewById(R.id.foodSupplyLine)
         etFood = findViewById(R.id.etFood)
         cbFFlag = findViewById(R.id.cbFFlag)
+        // Cleanliness
+        lineC = findViewById(R.id.cleanlinessLine)
         etClean = findViewById(R.id.etClean)
         cbCFlag = findViewById(R.id.cbCFlag)
         btnEditSubmit = findViewById(R.id.btnEditSubmit)
@@ -73,6 +83,17 @@ class HabitatDetailsActivity : AppCompatActivity() {
             cbFFlag.isChecked = it.fFlag
             etClean.setText(it.clean)
             cbCFlag.isChecked = it.cFlag
+            //Highlight lines if box is not checked
+            if (!it.tFlag) {
+                lineT.setBackgroundColor(Color.rgb(236,151,151))
+            }
+            if (!it.fFlag) {
+                lineF.setBackgroundColor(Color.rgb(236,151,151))
+            }
+            if (!it.cFlag) {
+                lineC.setBackgroundColor(Color.rgb(236,151,151))
+            }
+
             // Enable the delete button if a habitat is present
             btnDelete.isEnabled = true
         }
