@@ -1,6 +1,7 @@
 package com.example.zooapp2
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -35,12 +36,29 @@ class SubMenuActivity : AppCompatActivity() {
                 tvDetailsTitle.text = "Please select an available $selection"
 
                 // Get animal data
-                val animalDetails = ZooRepository.getAnimals()
-                    .filter { it.type == selection } // filter by animal type
-                    .map { it.name }    // list names
+                val animals = ZooRepository.getAnimals().filter {it.type == selection}
+                val animalDetails = animals.map {it.name}
 
                 // Set the list view
-                val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, animalDetails)
+                val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, animalDetails) {
+                    override fun getView(position: Int, convertView: android.view.View?, parent: android.view.ViewGroup): android.view.View {
+                        val view = super.getView(position, convertView, parent)
+                        val animal = animals[position]
+                        val textView = view.findViewById<TextView>(android.R.id.text1)
+                        var flag = false
+                        if (animal.health != "None") {
+                            flag = true
+                        }
+                        if (animal.food == "None") {
+                            flag = true
+                        }
+                        if (flag) {
+                            textView.setTextColor(Color.RED)
+                            textView.setTypeface(null, android.graphics.Typeface.BOLD)
+                        }
+                        return view
+                    }
+                }
                 listViewDetails.adapter = adapter
 
                 // Set list view item on click listener
@@ -56,15 +74,36 @@ class SubMenuActivity : AppCompatActivity() {
             }
             "Habitat" -> {
                 // Set the page title
-                tvDetailsTitle.text = "Please select an available $selection habitat"
+                tvDetailsTitle.text = "Please select an available $selection"
 
                 // Get habitat data
-                val habitatDetails = ZooRepository.getHabitats()
-                    .filter { it.type == selection } // filter by habitat type
-                    .map { it.name } // list names
+                val habitats = ZooRepository.getHabitats().filter {it.type == selection}
+                val habitatDetails = habitats.map {it.name}
 
                 // Set the list view
-                val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, habitatDetails)
+                val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, habitatDetails) {
+                    override fun getView(position: Int, convertView: android.view.View?, parent: android.view.ViewGroup): android.view.View {
+                        val view = super.getView(position, convertView, parent)
+                        val habitat = habitats[position]
+                        val textView = view.findViewById<TextView>(android.R.id.text1)
+                        var flag = false
+                        if (!habitat.cFlag) {
+                            flag = true
+                        }
+                        if (!habitat.fFlag) {
+                            flag = true
+                        }
+                        if (!habitat.tFlag) {
+                            flag = true
+                        }
+
+                        if (flag) {
+                            textView.setTextColor(Color.RED)
+                            textView.setTypeface(null, android.graphics.Typeface.BOLD)
+                        }
+                        return view
+                    }
+                }
                 listViewDetails.adapter = adapter
 
                 // Set list view item on click listener
