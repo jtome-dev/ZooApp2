@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zooapp2.data.ZooRepository
 
@@ -54,6 +55,11 @@ class MainActivity : AppCompatActivity() {
                 val selectedAnimalType = animalTypes[position]
                 navigateToSubMenuActivity(selectedAnimalType, "Animal")
             }
+
+            //Set add new button click listener
+            btnAddNew.setOnClickListener {
+                navigateToDetailsActivity("Animal")
+            }
         }
 
         // Set Habitats button click listener
@@ -73,14 +79,37 @@ class MainActivity : AppCompatActivity() {
             listViewData.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                 val selectedHabitatName = habitatNames[position]
                 navigateToSubMenuActivity(selectedHabitatName, "Habitat")
+
             }
+
+            //Set add new button click listener
+            btnAddNew.setOnClickListener {
+                navigateToDetailsActivity("Habitat")
+            }
+
         }
+
     }
     private fun navigateToSubMenuActivity(itemSelection: String, itemSubject: String) {
         val intent = Intent(this, SubMenuActivity::class.java)
         intent.putExtra(SubMenuActivity.EXTRA_SELECTION, itemSelection)
         intent.putExtra(SubMenuActivity.EXTRA_SUBJECT, itemSubject)
         startActivity(intent)
+    }
+    private fun navigateToDetailsActivity(subject: String) {
+        when (subject) {
+            "Animal" -> {
+                val intent = Intent(this, AnimalDetailsActivity::class.java)
+                startActivity(intent)
+            }
+            "Habitat" -> {
+                val intent = Intent(this, HabitatDetailsActivity::class.java)
+                startActivity(intent)
+            }
+            else -> {
+                Toast.makeText(this, "An error occured", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
 
