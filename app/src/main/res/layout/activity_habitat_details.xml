@@ -58,6 +58,12 @@
             android:inputType="text" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check the box if conditions are met"
+        android:layout_gravity="center_vertical"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,17 +74,16 @@
             android:layout_height="wrap_content"
             android:text="Temperature: "
             android:layout_gravity="center_vertical"/>
+        <CheckBox
+            android:id="@+id/cbTFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/etTemp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="text" />
-        <CheckBox
-            android:id="@+id/cbTFlag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
     <LinearLayout
@@ -91,17 +96,16 @@
             android:layout_height="wrap_content"
             android:text="Food Supply: "
             android:layout_gravity="center_vertical"/>
+        <CheckBox
+            android:id="@+id/cbFFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/etFood"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="text" />
-        <CheckBox
-            android:id="@+id/cbFFlag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
     <LinearLayout
@@ -114,17 +118,16 @@
             android:layout_height="wrap_content"
             android:text="Cleanliness: "
             android:layout_gravity="center_vertical"/>
+        <CheckBox
+            android:id="@+id/cbCFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/etClean"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="text" />
-        <CheckBox
-            android:id="@+id/cbCFlag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
     <Button
@@ -137,7 +140,7 @@
         android:id="@+id/btnDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete"
+        android:text="Edit/Submit"
         android:enabled="false" />
 
 </LinearLayout>
