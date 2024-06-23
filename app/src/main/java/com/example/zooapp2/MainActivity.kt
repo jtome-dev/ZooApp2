@@ -52,18 +52,18 @@ class MainActivity : AppCompatActivity() {
             // Set item click listener
             listViewData.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                 val selectedAnimalType = animalTypes[position]
-                navigateToDetailsActivity(selectedAnimalType, "Animal")
+                navigateToSubMenuActivity(selectedAnimalType, "Animal")
             }
         }
 
         // Set Habitats button click listener
         btnHabitats.setOnClickListener {
-            tvPrompt.text = "Please select a habitat"
+            tvPrompt.text = "Please select a biome"
             btnAddNew.text = "Add a New Habitat"
             btnAddNew.visibility = View.VISIBLE
 
             // Get unique habitat names in alphabetical order
-            val habitatNames = ZooRepository.getHabitats().map { it.name }.distinct().sorted()
+            val habitatNames = ZooRepository.getHabitats().map { it.type }.distinct().sorted()
 
             // Display habitat names in ListView
             val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, habitatNames)
@@ -72,14 +72,14 @@ class MainActivity : AppCompatActivity() {
             // Set item click listener
             listViewData.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                 val selectedHabitatName = habitatNames[position]
-                navigateToDetailsActivity(selectedHabitatName, "Habitat")
+                navigateToSubMenuActivity(selectedHabitatName, "Habitat")
             }
         }
     }
-    private fun navigateToDetailsActivity(itemSelection: String, itemSubject: String) {
-        val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra(DetailsActivity.EXTRA_SELECTION, itemSelection)
-        intent.putExtra(DetailsActivity.EXTRA_SUBJECT, itemSubject)
+    private fun navigateToSubMenuActivity(itemSelection: String, itemSubject: String) {
+        val intent = Intent(this, SubMenuActivity::class.java)
+        intent.putExtra(SubMenuActivity.EXTRA_SELECTION, itemSelection)
+        intent.putExtra(SubMenuActivity.EXTRA_SUBJECT, itemSubject)
         startActivity(intent)
     }
 }

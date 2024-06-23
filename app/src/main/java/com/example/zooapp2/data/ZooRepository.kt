@@ -17,9 +17,9 @@ object ZooRepository {
 
 
         // Mock Habitats
-        addHabitat(Habitat(UUID.randomUUID(), "Penguin", "Freezing", false, "Fish running low", true, "Passed", false))
-        addHabitat(Habitat(UUID.randomUUID(), "Bird", "Freezing", false, "Fish running low", true, "Passed", false))
-        addHabitat(Habitat(UUID.randomUUID(), "Aquarium", "Freezing", false, "Fish running low", true, "Passed", false))
+        addHabitat(Habitat(UUID.randomUUID(), "Tundra","Penguin", "Freezing", false, "Fish running low", true, "Passed", false))
+        addHabitat(Habitat(UUID.randomUUID(), "Rainforest","Bird", "Freezing", false, "Fish running low", true, "Passed", false))
+        addHabitat(Habitat(UUID.randomUUID(), "Marine","Aquarium", "Freezing", false, "Fish running low", true, "Passed", false))
     }
 
     fun addAnimal(animal: Animal) {

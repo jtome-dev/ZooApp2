@@ -4,6 +4,7 @@ import java.util.UUID
 
 data class Habitat(
     var id: UUID,
+    var type: String,
     var name: String,
     var temp: String,
     var tFlag: Boolean,
