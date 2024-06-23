@@ -1,5 +1,6 @@
 package com.example.zooapp2
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -14,16 +15,18 @@ class SubMenuActivity : AppCompatActivity() {
         const val EXTRA_SUBJECT = "extra_subject"
     }
 
+    private lateinit var tvDetailsTitle: TextView
+    private lateinit var listViewDetails: ListView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sub_menu)
 
-        val tvDetailsTitle: TextView = findViewById(R.id.tvDetailsTitle)
-        val listViewDetails: ListView = findViewById(R.id.listViewDetails)
+        tvDetailsTitle = findViewById(R.id.tvDetailsTitle)
+        listViewDetails = findViewById(R.id.listViewDetails)
 
-        // Get values from intent extras
-        val selection = intent.getStringExtra(EXTRA_SELECTION)
-        val subject = intent.getStringExtra(EXTRA_SUBJECT)
+        val selection = intent.getStringExtra(EXTRA_SELECTION) ?: return
+        val subject = intent.getStringExtra(EXTRA_SUBJECT) ?: return
 
         when (subject) {
             "Animal" -> {
@@ -33,6 +36,15 @@ class SubMenuActivity : AppCompatActivity() {
                     .map { it.name }
                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, animalDetails)
                 listViewDetails.adapter = adapter
+                listViewDetails.setOnItemClickListener { _, _, position, _ ->
+                    val selectedAnimalName = animalDetails[position]
+                    val selectedAnimal = ZooRepository.getAnimals().find { it.name == selectedAnimalName }
+                    selectedAnimal?.let {
+                        val intent = Intent(this, AnimalDetailsActivity::class.java)
+                        intent.putExtra(AnimalDetailsActivity.EXTRA_ANIMAL_UUID, it.id.toString())
+                        startActivity(intent)
+                    }
+                }
             }
             "Habitat" -> {
                 tvDetailsTitle.text = "Please select an available $selection habitat"
@@ -41,6 +53,15 @@ class SubMenuActivity : AppCompatActivity() {
                     .map { it.name }
                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, habitatDetails)
                 listViewDetails.adapter = adapter
+                listViewDetails.setOnItemClickListener { _, _, position, _ ->
+                    val selectedHabitatName = habitatDetails[position]
+                    val selectedHabitat = ZooRepository.getHabitats().find { it.name == selectedHabitatName }
+                    selectedHabitat?.let {
+                        val intent = Intent(this, HabitatDetailsActivity::class.java)
+                        intent.putExtra(HabitatDetailsActivity.EXTRA_HABITAT_UUID, it.id.toString())
+                        startActivity(intent)
+                    }
+                }
             }
         }
     }
