@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,9 @@ class AnimalDetailsActivity : AppCompatActivity() {
     private lateinit var etType: EditText
     private lateinit var etName: EditText
     private lateinit var etAge: EditText
+    private lateinit var lineH: LinearLayout
     private lateinit var etHealth: EditText
+    private lateinit var lineF: LinearLayout
     private lateinit var etFood: EditText
     private lateinit var btnEditSubmit: Button
     private lateinit var btnDelete: Button
@@ -39,7 +42,9 @@ class AnimalDetailsActivity : AppCompatActivity() {
         etType = findViewById(R.id.etType)
         etName = findViewById(R.id.etName)
         etAge = findViewById(R.id.etAge)
+        lineH = findViewById(R.id.healthConcernLine)
         etHealth = findViewById(R.id.etHealth)
+        lineF = findViewById(R.id.feedingScheduleLine)
         etFood = findViewById(R.id.etFood)
         btnEditSubmit = findViewById(R.id.btnEditSubmit)
         btnDelete = findViewById(R.id.btnDelete)
@@ -63,6 +68,13 @@ class AnimalDetailsActivity : AppCompatActivity() {
             etAge.setText(it.age.toString())
             etHealth.setText(it.health)
             etFood.setText(it.food)
+            //Highlight lines if warning condition is met
+            if (it.health != "None") {
+                lineH.setBackgroundColor(Color.rgb(236,151,151))
+            }
+            if (it.food == "None") {
+                lineF.setBackgroundColor(Color.rgb(236,151,151))
+            }
             // Enable the delete button if an animal is present
             btnDelete.isEnabled = true
         }
