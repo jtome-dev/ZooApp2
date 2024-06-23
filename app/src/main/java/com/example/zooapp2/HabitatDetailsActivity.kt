@@ -16,6 +16,7 @@ class HabitatDetailsActivity : AppCompatActivity() {
         const val EXTRA_HABITAT_UUID = "extra_habitat_uuid"
     }
 
+    private lateinit var tvTitle: TextView
     private lateinit var tvId: TextView
     private lateinit var etType: EditText
     private lateinit var etName: EditText
@@ -35,6 +36,7 @@ class HabitatDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_habitat_details)
 
         // Initialize views
+        tvTitle = findViewById(R.id.tvTitle)
         tvId = findViewById(R.id.tvId)
         etType = findViewById(R.id.etType)
         etName = findViewById(R.id.etName)
@@ -48,7 +50,7 @@ class HabitatDetailsActivity : AppCompatActivity() {
         btnDelete = findViewById(R.id.btnDelete)
 
         // Set title
-        title = "Habitat Details"
+        tvTitle.text = "New Habitat"
 
         // Check if habitat UUID is passed via intent extras
         val habitatUUIDString = intent.getStringExtra(EXTRA_HABITAT_UUID)
@@ -59,6 +61,7 @@ class HabitatDetailsActivity : AppCompatActivity() {
 
         // Populate UI with habitat data if available
         habitat?.let {
+            tvTitle.text = "${it.name} Habitat Details"
             tvId.text = "ID: ${it.id}"
             etType.setText(it.type)
             etName.setText(it.name)

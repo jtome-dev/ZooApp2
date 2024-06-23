@@ -15,6 +15,7 @@ class AnimalDetailsActivity : AppCompatActivity() {
         const val EXTRA_ANIMAL_UUID = "extra_animal_uuid"
     }
 
+    private lateinit var tvTitle: TextView
     private lateinit var tvId: TextView
     private lateinit var etType: EditText
     private lateinit var etName: EditText
@@ -31,6 +32,7 @@ class AnimalDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_animal_details)
 
         // Initialize views
+        tvTitle = findViewById(R.id.tvTitle)
         tvId = findViewById(R.id.tvId)
         etType = findViewById(R.id.etType)
         etName = findViewById(R.id.etName)
@@ -41,7 +43,7 @@ class AnimalDetailsActivity : AppCompatActivity() {
         btnDelete = findViewById(R.id.btnDelete)
 
         // Set title
-        title = "Animal Details"
+        tvTitle.text = "New Animal"
 
         // Check if animal UUID is passed via intent extras
         val animalUUIDString = intent.getStringExtra(EXTRA_ANIMAL_UUID)
@@ -52,6 +54,7 @@ class AnimalDetailsActivity : AppCompatActivity() {
 
         // Populate UI with animal data if available
         animal?.let {
+            tvTitle.text = "${it.name} the ${it.type}"
             tvId.text = "ID: ${it.id}"
             etType.setText(it.type)
             etName.setText(it.name)
