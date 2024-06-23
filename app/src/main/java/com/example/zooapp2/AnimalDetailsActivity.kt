@@ -1,9 +1,11 @@
 package com.example.zooapp2
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zooapp2.data.Animal
 import com.example.zooapp2.data.ZooRepository
@@ -67,18 +69,43 @@ class AnimalDetailsActivity : AppCompatActivity() {
 
         // Set click listeners
         btnEditSubmit.setOnClickListener {
-            if (animal != null) {
-                updateAnimal()
-            } else {
-                saveAnimal()
+            if(checkBlankEditTexts(etType, etName, etAge, etHealth, etFood)) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            } else  {
+                if (animal != null) {
+                    updateAnimal()
+                } else {
+                    saveAnimal()
+                }
             }
         }
 
+        var clickCount = 0
         btnDelete.setOnClickListener {
-            deleteAnimal()
+            clickCount++
+            when(clickCount) {
+                1 -> {
+                    btnDelete.text = "Confirm Delete?"
+                    btnDelete.setBackgroundColor(Color.RED)
+                }
+                2 -> {
+                    deleteAnimal()
+                }
+                else -> {
+                    Toast.makeText(this, "An error occured", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
+    private fun checkBlankEditTexts(vararg editTexts: EditText): Boolean {
+        for (editText in editTexts) {
+            if (editText.text.isBlank()) {
+                return true
+            }
+        }
+        return false
+    }
     private fun updateAnimal() {
         animal?.let {
             it.type = etType.text.toString().trim()
