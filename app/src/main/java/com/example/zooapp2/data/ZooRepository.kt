@@ -15,12 +15,12 @@ object ZooRepository {
         addAnimal(Animal(UUID.randomUUID(), "Lion", "Jeff", 4, "None", "None"))
 
         // Mock Habitats
-        addHabitat(Habitat(UUID.randomUUID(), "Tundra", "Penguin", "-30 - 35 F", false, "Fish", false, "Passed", true))
+        addHabitat(Habitat(UUID.randomUUID(), "Tundra", "Penguin", "-30 - 35 F", false, "Fish running low", false, "Passed", true))
         addHabitat(Habitat(UUID.randomUUID(), "Tundra", "Polar Bear", "-30 - 35 F", true, "Fish and Beef", true, "Passed", true))
         addHabitat(Habitat(UUID.randomUUID(), "Rainforest", "Apiary", "68 - 84 F", true, "Seeds and worms", true, "Passed", true))
         addHabitat(Habitat(UUID.randomUUID(), "Rainforest", "Boa", "68 - 84 F", true, "Mice", true, "Passed", true))
         addHabitat(Habitat(UUID.randomUUID(), "Marine", "Coral Reef", "68 - 97 F", false, "Plankton", true, "Passed", true))
-        addHabitat(Habitat(UUID.randomUUID(), "Marine", "Jellyfish", "60 - 78 F", true, "Plankton", true, "Passed", false))
+        addHabitat(Habitat(UUID.randomUUID(), "Marine", "Jellyfish", "60 - 78 F", true, "Plankton", true, "Needs cleaning from algae", false))
     }
 
     fun getAnimals(): List<Animal> {
