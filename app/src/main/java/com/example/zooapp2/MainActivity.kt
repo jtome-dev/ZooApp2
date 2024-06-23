@@ -1,7 +1,9 @@
 package com.example.zooapp2
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
@@ -34,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         tvTitle.text = "Zoo Monitoring System"
         tvPrompt.text = "Please select a menu"
 
+        // Set Animals button click listener
         btnAnimals.setOnClickListener {
             tvPrompt.text = "Please select an animal type"
             btnAddNew.text = "Add a New Animal"
@@ -45,8 +48,15 @@ class MainActivity : AppCompatActivity() {
             // Display animal types in ListView
             val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, animalTypes)
             listViewData.adapter = adapter
+
+            // Set item click listener
+            listViewData.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                val selectedAnimalType = animalTypes[position]
+                navigateToDetailsActivity(selectedAnimalType, "Animal")
+            }
         }
 
+        // Set Habitats button click listener
         btnHabitats.setOnClickListener {
             tvPrompt.text = "Please select a habitat"
             btnAddNew.text = "Add a New Habitat"
@@ -58,9 +68,19 @@ class MainActivity : AppCompatActivity() {
             // Display habitat names in ListView
             val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, habitatNames)
             listViewData.adapter = adapter
-        }
 
-        // Additional setup or functionality can be added here as needed
+            // Set item click listener
+            listViewData.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                val selectedHabitatName = habitatNames[position]
+                navigateToDetailsActivity(selectedHabitatName, "Habitat")
+            }
+        }
+    }
+    private fun navigateToDetailsActivity(itemSelection: String, itemSubject: String) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra(DetailsActivity.EXTRA_SELECTION, itemSelection)
+        intent.putExtra(DetailsActivity.EXTRA_SUBJECT, itemSubject)
+        startActivity(intent)
     }
 }
 
